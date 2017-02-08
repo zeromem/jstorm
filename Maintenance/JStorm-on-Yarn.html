@@ -350,9 +350,76 @@ blobstore.hdfs.hostname: yourhdfshost
 blobstore.hdfs.port: yourhdfsport
 </code></pre>
 	  
-<h2 id="yarn-configuration">Yarn Configuration</h2>
+<h1 id="yarn-">Yarn Configuration</h1>
 
-<p>TO BE ADDED</p>
+<h2 id="yarn_prepare">Prepare</h2> 
+	  <p>
+require centos6u or 7u，need setup hadoop2.6.3
+		  start up HDFS、yarn、zookeeper，read official document for detail (also can connect exist zk service)</p>
+<h2 id="yarn_config_edit">edit configuration</h2> 
+	  <p>
+config cgroup。add follow content to yarn-site.xml，note replace user group to real 
+	  </p>
+<pre><code> 
+ &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.cgroups.hierarchy&lt;/name&gt;
+      &lt;value&gt;/hadoop-yarn&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.cgroups.mount&lt;/name&gt;
+      &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.cgroups.mount-path&lt;/name&gt;
+      &lt;value&gt;/sys/fs/cgroup&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.group&lt;/name&gt;
+      &lt;value&gt;hadoop&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user&lt;/name&gt;
+      &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+</code></pre>
+
+
+	  <p>config yarn registry，replace hadoop.registry.zk.quorum to real zk server：</p>
+<pre><code> 
+&lt;property&gt;
+      &lt;name&gt;hadoop.registry.jaas.context&lt;/name&gt;
+      &lt;value&gt;Client&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.kerberos.realm&lt;/name&gt;
+      &lt;value&gt;&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.rm.enabled&lt;/name&gt;
+      &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.secure&lt;/name&gt;
+      &lt;value&gt;false&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.system.acls&lt;/name&gt;
+      &lt;value&gt;hadoop.registry.system.acls&lt;/value&gt;
+    &lt;/property&gt;
+    
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.zk.connection.timeout.ms&lt;/name&gt;
+      &lt;value&gt;15000&lt;/value&gt;
+    &lt;/property&gt;
+    </code></pre>
 
 <h1 id="yarn-introductory-series-articles">Yarn introductory series articles</h1>
 
