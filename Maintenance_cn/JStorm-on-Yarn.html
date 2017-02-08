@@ -353,11 +353,76 @@ blobstore.hdfs.hostname: yourhdfshost
 blobstore.hdfs.port: yourhdfsport
 </code></pre>
 
-<h2 id="yarn-">Yarn 配置</h2>
+<h1 id="yarn-">Yarn 配置</h1>
 
-<p>TO BE ADDED</p>
+<h2 id="yarn_prepare">准备工作</h2> 
+	  <p>
+系统要求centos6u或7u，安装hadoop2.6.3后
+		  启动HDFS、yarn、zookeeper，具体过程可参照官方文档(若已存在zk服务，也可以向外部连接)</p>
+<h2 id="yarn_config_edit">配置修改</h2> 
+	  <p>
+首先需要配置cgroup,隔离CPU资源。在yarn-site.xml中加入下列配置项，注意把用户组替换成实际的执行用户
+	  </p>
+<pre><code> 
+  <property>
+      <name>yarn.nodemanager.linux-container-executor.cgroups.hierarchy</name>
+      <value>/hadoop-yarn</value>
+    </property>
+    
+    <property>
+      <name>yarn.nodemanager.linux-container-executor.cgroups.mount</name>
+      <value>true</value>
+    </property>
+    
+    <property>
+      <name>yarn.nodemanager.linux-container-executor.cgroups.mount-path</name>
+      <value>/sys/fs/cgroup</value>
+    </property>
+    
+    <property>
+      <name>yarn.nodemanager.linux-container-executor.group</name>
+      <value>hadoop</value>
+    </property>
+    
+    <property>
+      <name>yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user</name>
+      <value>yarn</value>
+    </property>
+</code></pre>
 
 
+	  <p>配置yarn注册服务，其中hadoop.registry.zk.quorum项要替换成实际的zk：</p>
+<pre><code> 
+<property>
+      <name>hadoop.registry.jaas.context</name>
+      <value>Client</value>
+    </property>
+    
+    <property>
+      <name>hadoop.registry.kerberos.realm</name>
+      <value></value>
+    </property>
+    
+    <property>
+      <name>hadoop.registry.rm.enabled</name>
+      <value>true</value>
+    </property>
+    
+    <property>
+      <name>hadoop.registry.secure</name>
+      <value>false</value>
+    </property>
+    
+    <property>
+      <name>hadoop.registry.system.acls</name>
+      <value>hadoop.registry.system.acls</value>
+    </property>
+    
+    <property>
+      <name>hadoop.registry.zk.connection.timeout.ms</name>
+      <value>15000</value>
+    </property>
+    </code></pre>
   <div class="footer">
       Google Groups: <a target="_blank" href="https://groups.google.com/forum/#!forum/jstorm-user">jstorm-user</a>, QQ Groups: 228374502
       </p>
