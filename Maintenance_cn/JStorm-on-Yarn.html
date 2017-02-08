@@ -361,67 +361,67 @@ blobstore.hdfs.port: yourhdfsport
 		  启动HDFS、yarn、zookeeper，具体过程可参照官方文档(若已存在zk服务，也可以向外部连接)</p>
 <h2 id="yarn_config_edit">配置修改</h2> 
 	  <p>
-首先需要配置cgroup,隔离CPU资源。在yarn-site.xml中加入下列配置项，注意把用户组替换成实际的执行用户
+首先需要配置cgroup。在yarn-site.xml中加入下列配置项，注意把用户组替换成实际的执行用户
 	  </p>
 <pre><code> 
-  <property>
-      <name>yarn.nodemanager.linux-container-executor.cgroups.hierarchy</name>
-      <value>/hadoop-yarn</value>
-    </property>
+ &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.cgroups.hierarchy&lt;/name&gt;
+      &lt;value&gt;/hadoop-yarn&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>yarn.nodemanager.linux-container-executor.cgroups.mount</name>
-      <value>true</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.cgroups.mount&lt;/name&gt;
+      &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>yarn.nodemanager.linux-container-executor.cgroups.mount-path</name>
-      <value>/sys/fs/cgroup</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.cgroups.mount-path&lt;/name&gt;
+      &lt;value&gt;/sys/fs/cgroup&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>yarn.nodemanager.linux-container-executor.group</name>
-      <value>hadoop</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.group&lt;/name&gt;
+      &lt;value&gt;hadoop&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user</name>
-      <value>yarn</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user&lt;/name&gt;
+      &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
 </code></pre>
 
 
 	  <p>配置yarn注册服务，其中hadoop.registry.zk.quorum项要替换成实际的zk：</p>
 <pre><code> 
-<property>
-      <name>hadoop.registry.jaas.context</name>
-      <value>Client</value>
-    </property>
+&lt;property&gt;
+      &lt;name&gt;hadoop.registry.jaas.context&lt;/name&gt;
+      &lt;value&gt;Client&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>hadoop.registry.kerberos.realm</name>
-      <value></value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.kerberos.realm&lt;/name&gt;
+      &lt;value&gt;&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>hadoop.registry.rm.enabled</name>
-      <value>true</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.rm.enabled&lt;/name&gt;
+      &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>hadoop.registry.secure</name>
-      <value>false</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.secure&lt;/name&gt;
+      &lt;value&gt;false&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>hadoop.registry.system.acls</name>
-      <value>hadoop.registry.system.acls</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.system.acls&lt;/name&gt;
+      &lt;value&gt;hadoop.registry.system.acls&lt;/value&gt;
+    &lt;/property&gt;
     
-    <property>
-      <name>hadoop.registry.zk.connection.timeout.ms</name>
-      <value>15000</value>
-    </property>
+    &lt;property&gt;
+      &lt;name&gt;hadoop.registry.zk.connection.timeout.ms&lt;/name&gt;
+      &lt;value&gt;15000&lt;/value&gt;
+    &lt;/property&gt;
     </code></pre>
   <div class="footer">
       Google Groups: <a target="_blank" href="https://groups.google.com/forum/#!forum/jstorm-user">jstorm-user</a>, QQ Groups: 228374502
