@@ -354,11 +354,11 @@ blobstore.hdfs.port: yourhdfsport
 
 <h2 id="yarn_prepare">Prepare</h2> 
 	  <p>
-require centos6u or 7u，need setup hadoop2.6.3,
-		  start up HDFS、yarn、zookeeper，read official document for detail (also can connect exist zk service)</p>
+Require centos6u or 7u，need setup hadoop2.6.3 and zookeeper,
+		  read official document for detail (also can connect exist zk service)</p>
 <h2 id="yarn_config_edit">Edit Configuration</h2> 
 	  <p>
-config cgroup.add follow content to yarn-site.xml，note replace user group to real 
+config cgroup.add follow content to yarn-site.xml，note replace user group to real user for execute application
 	  </p>
 <pre><code> 
  &lt;property&gt;
